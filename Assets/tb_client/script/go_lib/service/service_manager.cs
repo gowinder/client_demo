@@ -1,22 +1,28 @@
-﻿using Assets.tb_client.script.go_lib.logic;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// service_manager.cs
+// 2016-05-10-17:45
+
+#region
+
+using Assets.tb_client.script.go_lib.logic;
 using Assets.tb_client.script.go_lib.net;
-using go_lib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.service
 {
-    class service_manager
+    public class service_manager
     {
         private static service_logic _s_logic;
+
+        private static service_network _s_network;
+
         public static service_logic logic()
         {
             return _s_logic;
         }
 
-        private static service_network _s_network;
         public static service_network network()
         {
             return _s_network;

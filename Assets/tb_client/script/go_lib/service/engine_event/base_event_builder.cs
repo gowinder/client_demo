@@ -1,39 +1,42 @@
-﻿using Assets.tb_client.script.go_lib.net;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// base_event_builder.cs
+// 2016-05-10-17:45
+
+#region
+
+using Assets.tb_client.script.go_lib.net;
 using go_lib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.service.engine_event
 {
-    class base_event_builder : i_event_builder
+    internal class base_event_builder : i_event_builder
     {
-        public event_base build_event(String event_type)
+        public event_base build_event(string event_type)
         {
             switch (event_type)
             {
                 case event_stop_service.type:
-                    {
-                        return new event_stop_service();
-                    }
+                {
+                    return new event_stop_service();
+                }
                 case event_connect_server.type:
-                    {
-                        return new event_connect_server();
-                    }
+                {
+                    return new event_connect_server();
+                }
                 case event_connect_status.type:
-                    {
-                        return new event_connect_status();
-                    }
+                {
+                    return new event_connect_status();
+                }
                 case event_send_net_msg.type:
-                    {
-                        return new event_send_net_msg();
-                    }
+                {
+                    return new event_send_net_msg();
+                }
                 default:
                     return null;
             }
-
-
         }
     }
 }

@@ -1,47 +1,29 @@
-﻿using UnityEngine;
-using System.Collections;
-using Assets.tb_client.script.go_lib.service;
-using Assets.tb_client.script.go_lib.exception;
-using System.Threading;
-using System;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// service_base.cs
+// 2016-05-10-17:45
 
+#region
+
+using System;
+using System.Threading;
+using Assets.tb_client.script.go_lib.service;
+using UnityEngine;
+
+#endregion
 
 namespace go_lib
 {
     public class service_base : MonoBehaviour
     {
-        void Awake()
-        {
-            
-        }
-
-        void OnApplicationQuit()
-        {
-            stop_service();
-        }
-
-        // Use this for initialization
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        protected int _id;
 
 
         protected i_event_pump _pump;
-        protected int _id;
-        protected Thread _thread;
         protected bool _start_own_thread;
-    
+        protected Thread _thread;
 
-        protected virtual i_event_pump create_pump()
-        {
-            return new event_pump(_id);
-        }
+        private readonly string fun_name = "thread_process";
 
         public bool is_running
         {
@@ -54,12 +36,37 @@ namespace go_lib
             }
         }
 
+        private void Awake()
+        {
+        }
+
+        private void OnApplicationQuit()
+        {
+            stop_service();
+        }
+
+        // Use this for initialization
+        private void Start()
+        {
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+        }
+
+
+        protected virtual i_event_pump create_pump()
+        {
+            return new event_pump(_id);
+        }
+
 //         public service_base(int id)
 //         {
 //             _id = id;
 //         }
 
-        public event_base get_new_event(String event_type)
+        public event_base get_new_event(string event_type)
         {
 //             if(_pump == null)
 //                 throw new exception_base(exception_base.RETURN_NULL_REF);
@@ -74,7 +81,6 @@ namespace go_lib
                 if (is_running)
                     go_tick();
             }
-
         }
 
         protected void go_tick()
@@ -88,15 +94,12 @@ namespace go_lib
         {
             try
             {
-                
             }
             catch (Exception e)
             {
                 Debug.Log(e.Message);
             }
         }
-
-        private string fun_name = "thread_process";
 
         public void start_service(bool start_own_thread)
         {
@@ -106,8 +109,8 @@ namespace go_lib
             _pump = create_pump();
             _pump.open();
             _start_own_thread = start_own_thread;
-            service_thread t = new service_thread(this);
-            ThreadStart threadDelegate = new ThreadStart(t.proc);
+            var t = new service_thread(this);
+            ThreadStart threadDelegate = t.proc;
             if (start_own_thread)
             {
                 _thread = new Thread(threadDelegate);
@@ -115,7 +118,7 @@ namespace go_lib
             }
             else
             {
-                this.InvokeRepeating(fun_name, 0.1f, 1.0f);                
+                InvokeRepeating(fun_name, 0.1f, 1.0f);
             }
         }
 
@@ -132,7 +135,7 @@ namespace go_lib
             }
             else
             {
-                this.CancelInvoke(fun_name);
+                CancelInvoke(fun_name);
             }
         }
 
@@ -145,8 +148,8 @@ namespace go_lib
 
                 const int INTERVAL = 50;
 
-                DateTime dt_start = DateTime.Now;
-                event_base e = _pump.pop();
+                var dt_start = DateTime.Now;
+                var e = _pump.pop();
 //                 for (; ; )
 //                 {
 //                     if (e == null)
@@ -161,13 +164,13 @@ namespace go_lib
 //                     }
 //                     e.recycle();
 //                 }
-                if(e != null)
+                if (e != null)
                 {
                     e.process();
                     e.recycle();
                 }
-                DateTime dt_end = DateTime.Now;
-                TimeSpan ts = dt_end - dt_start;
+                var dt_end = DateTime.Now;
+                var ts = dt_end - dt_start;
 
                 if (ts.Milliseconds < INTERVAL && _start_own_thread)
                     _pump.wait(INTERVAL - ts.Milliseconds);
@@ -188,14 +191,13 @@ namespace go_lib
 
             _pump.push(e);
         }
-
-       
     }
 
 
-    class service_thread
+    internal class service_thread
     {
         protected service_base _s;
+
         public service_thread(service_base s)
         {
             _s = s;
@@ -207,5 +209,4 @@ namespace go_lib
             _s.thread_process();
         }
     }
-   
 }

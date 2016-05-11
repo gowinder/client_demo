@@ -1,24 +1,32 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// test_init_pre.cs
+// 2016-05-10-17:45
 
-public class test_init_pre : MonoBehaviour {
+#region
 
-	// Use this for initialization
-	void Start () {
-	    for(int y = 0; y < 5 ; y++)
+using UnityEngine;
+
+#endregion
+
+public class test_init_pre : MonoBehaviour
+{
+    // Use this for initialization
+    private void Start()
+    {
+        for (var y = 0; y < 5; y++)
         {
-            for(int x = 0; x < 5; x++)
+            for (var x = 0; x < 5; x++)
             {
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 cube.AddComponent<Rigidbody>();
                 cube.transform.position = new Vector3(x, y, 0);
             }
         }
-	}
+    }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-	
-	}
+    }
 }

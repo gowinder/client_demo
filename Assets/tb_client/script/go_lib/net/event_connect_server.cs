@@ -1,41 +1,72 @@
-﻿using Assets.tb_client.script.go_lib.service;
-using go_lib;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// event_connect_server.cs
+// 2016-05-10-17:45
+
+#region
+
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LitJson;
+using System.Net.Sockets;
 using Assets.tb_client.script.go_lib.logic;
 using Assets.tb_client.script.go_lib.service.engine_event;
+using go_lib;
+using LitJson;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.net
 {
-    class event_connect_server : event_base
+    internal class event_connect_server : event_base
     {
-        public const String type = "connect_server";
+        public const string type = "connect_server";
 
-        public void set(service_base from, service_base to, byte[] buff, ArrayList parameters)
+        public enum connect_socket_status
         {
-            set(from, to, type, buff, parameters);
+            connected = 1,
+            failed = 2,
+            disconnected = 3
+        }
+
+        public class connect_to_server_info
+        {
+            public string host { get; set; }
+            public int port { get; set; }
+            public connect_socket_status status { get; set; }
+            public SocketError sock_error { get; set; }
+            public uint session_id { get; set; }
+            public event_base band_event { get; set; }
+
+            /// <summary>
+            /// auto reconnect when disconnect or connect failed
+            /// </summary>
+            public bool auto_reconnect { get; set; }
+            /// <summary>
+            /// silent when connect result
+            /// </summary>
+            public bool silent { get; set; }
+        }
+
+        public void set(service_base from, service_base to, connect_to_server_info info)
+        {
+            set(from, to, type, info, null);
         }
 
         public override void process()
         {
             if (data_type != event_data_type.string_obj)
                 throw new exception_type_not_valid();
-            string str = Convert.ToString(data);
+            var str = Convert.ToString(data);
 
-            JsonData json = JsonMapper.ToObject(str);
-            
+            var json = JsonMapper.ToObject(str);
+
             if (to_service is service_network)
             {
-                service_network nw = to_service as service_network;
+                var nw = to_service as service_network;
                 nw.connect_to_server(json);
             }
             else if (to_service is service_logic)
             {
-
             }
         }
     }

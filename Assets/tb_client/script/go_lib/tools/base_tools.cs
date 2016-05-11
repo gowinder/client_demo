@@ -1,21 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// base_tools.cs
+// 2016-05-10-17:45
+
+#region
+
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.tools
 {
-    class base_tools
+    internal class base_tools
     {
         public static byte[] StrutsToBytesArray(object structObj)
         {
             //得到结构体的大小  
-            int size = Marshal.SizeOf(structObj);
+            var size = Marshal.SizeOf(structObj);
             //创建byte数组  
-            byte[] bytes = new byte[size];
+            var bytes = new byte[size];
             //分配结构体大小的内存空间  
-            IntPtr structPtr = Marshal.AllocHGlobal(size);
+            var structPtr = Marshal.AllocHGlobal(size);
             //将结构体拷到分配好的内存空间  
             Marshal.StructureToPtr(structObj, structPtr, false);
             //从内存空间拷到byte数组  
@@ -25,10 +31,11 @@ namespace Assets.tb_client.script.go_lib.tools
             //返回byte数组  
             return bytes;
         }
+
         public static object BytesToStruts(byte[] bytes, Type type)
         {
             //得到结构体的大小  
-            int size = Marshal.SizeOf(type);
+            var size = Marshal.SizeOf(type);
             //byte数组长度小于结构体的大小  
             if (size > bytes.Length)
             {
@@ -36,15 +43,15 @@ namespace Assets.tb_client.script.go_lib.tools
                 return null;
             }
             //分配结构体大小的内存空间  
-            IntPtr structPtr = Marshal.AllocHGlobal(size);
+            var structPtr = Marshal.AllocHGlobal(size);
             //将byte数组拷到分配好的内存空间  
             Marshal.Copy(bytes, 0, structPtr, size);
             //将内存空间转换为目标结构体  
-            object obj = Marshal.PtrToStructure(structPtr, type);
+            var obj = Marshal.PtrToStructure(structPtr, type);
             //释放内存空间  
             Marshal.FreeHGlobal(structPtr);
             //返回结构体  
             return obj;
-        }  
+        }
     }
 }

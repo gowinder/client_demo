@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// event_paramter.cs
+// 2016-05-10-17:45
 
 namespace Assets.tb_client.script.go_lib.service.engine_event
 {
-    class event_paramter
+    internal class event_paramter
     {
-        public String name { get; set; }
-        public String data { get; set; }
+        public string name { get; set; }
+        public string data { get; set; }
     }
 }

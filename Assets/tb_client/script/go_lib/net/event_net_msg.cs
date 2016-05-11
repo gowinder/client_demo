@@ -1,16 +1,21 @@
-﻿using Assets.tb_client.script.go_lib.service.engine_event;
-using go_lib;
-using System;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// event_net_msg.cs
+// 2016-05-10-17:45
+
+#region
+
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Assets.tb_client.script.go_lib.service.engine_event;
+using go_lib;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.net
 {
-    class event_net_msg : event_base
+    internal class event_net_msg : event_base
     {
-        public const String type = "net_msg";
+        public const string type = "net_msg";
 
         public void set(service_base from, service_base to, byte[] buff, ArrayList parameters)
         {
@@ -21,7 +26,6 @@ namespace Assets.tb_client.script.go_lib.net
         {
             if (data_type != event_data_type.byte_array)
                 throw new exception_type_not_valid();
-            
         }
     }
 }

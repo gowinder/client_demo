@@ -1,8 +1,13 @@
-﻿using go_lib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// i_event_pump.cs
+// 2016-05-10-17:45
+
+#region
+
+using go_lib;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.service
 {
@@ -16,6 +21,6 @@ namespace Assets.tb_client.script.go_lib.service
         void open();
         bool is_open();
         void recycle(event_base e);
-        event_base get_new_event(String type);
+        event_base get_new_event(string type);
     }
 }

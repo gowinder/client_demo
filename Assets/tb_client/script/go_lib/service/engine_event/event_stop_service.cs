@@ -1,14 +1,19 @@
-﻿using go_lib;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// event_stop_service.cs
+// 2016-05-10-17:45
+
+#region
+
+using go_lib;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.service.engine_event
 {
-    class event_stop_service : event_base
+    internal class event_stop_service : event_base
     {
-        public const String type = "stop_service";
+        public const string type = "stop_service";
 
         public void set(service_base from, service_base to)
         {

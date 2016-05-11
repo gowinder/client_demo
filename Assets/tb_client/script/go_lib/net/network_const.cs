@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// network_const.cs
+// 2016-05-10-17:45
 
 namespace Assets.tb_client.script.go_lib.net
 {
-    class network_const
+    internal class network_const
     {
         public enum EM_NETWORK_CONNECT_TYPE
         {
-            NCT_SOCKET = 1,
+            NCT_SOCKET = 1
         }
 
         public enum EM_NETWORK_CONNTION_STATUS
@@ -17,7 +17,7 @@ namespace Assets.tb_client.script.go_lib.net
             NCS_NONE = 0,
             NCS_CONNECTED = 1,
             NCS_DISCONNECTED = 2,
-            NCS_CONNEC_FAILED = 3,
+            NCS_CONNEC_FAILED = 3
         }
 
         public const string CONNECTION_TYPE = "ct";

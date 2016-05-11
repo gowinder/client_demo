@@ -1,18 +1,29 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿// gowinder@hotmail.com
+// Assembly-CSharp
+// MoveToTarget.cs
+// 2016-05-10-17:41
 
-public class MoveToTarget : MonoBehaviour {
+#region
+
+using UnityEngine;
+
+#endregion
+
+public class MoveToTarget : MonoBehaviour
+{
+    private Transform end;
 
     private Transform start;
-    private Transform end;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    private void Start()
+    {
         start = GameObject.Find("Cube").GetComponent<Transform>();
         end = GameObject.Find("GameObject").GetComponent<Transform>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
         transform.position = Vector3.Lerp(start.position, end.position, Time.deltaTime);
-	}
+    }
 }
