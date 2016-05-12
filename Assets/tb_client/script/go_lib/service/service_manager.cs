@@ -23,7 +23,7 @@ namespace Assets.tb_client.script.go_lib.service
             return _s_logic;
         }
 
-        public static service_network network()
+        public static service_network instance()
         {
             return _s_network;
         }

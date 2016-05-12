@@ -5,7 +5,7 @@
 
 namespace Assets.tb_client.script.go_lib.net
 {
-    internal class network_const
+    public class network_const
     {
         public enum EM_NETWORK_CONNECT_TYPE
         {

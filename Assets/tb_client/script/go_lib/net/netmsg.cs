@@ -5,7 +5,7 @@
 
 namespace Assets.tb_client.script.go_lib.net
 {
-    internal class netmsg
+    public class netmsg
     {
     }
 }

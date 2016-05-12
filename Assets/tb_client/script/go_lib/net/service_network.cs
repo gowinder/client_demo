@@ -21,7 +21,7 @@ using UnityEngine;
 
 namespace Assets.tb_client.script.go_lib.net
 {
-    internal struct NET_MSG_HEAD
+    public struct NET_MSG_HEAD
     {
         public int size; //!<
         public int type; //!<
@@ -30,13 +30,13 @@ namespace Assets.tb_client.script.go_lib.net
     }
 
 
-    internal struct VARIABLE_BUFFER
+    public struct VARIABLE_BUFFER
     {
         public int size;
         public char[] buffer;
     }
 
-    internal class service_network : service_base
+    public class service_network : service_base
     {
         protected const int RECEIVE_BUFF_SIZE = 512*1024;
         protected const int SEND_BUFF_SIZE = 512*1024;
@@ -137,7 +137,7 @@ namespace Assets.tb_client.script.go_lib.net
 
             var e = (event_connect_status) service_manager.logic().get_new_event(event_connect_status.type);
             e.set(this, service_manager.logic(), json);
-            service_manager.network().send_event(e);
+            service_manager.instance().send_event(e);
         }
 
         protected override void maintain()
