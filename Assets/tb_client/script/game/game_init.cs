@@ -14,11 +14,8 @@ namespace Assets.tb_client.script.game
     {
         void Start()
         {
-            my_service_logic logic_ser = new my_service_logic();
-            service_network network_ser = new service_network();
-
-            service_manager.set_logic(logic_ser);
-            service_manager.set_network(network_ser);
+            service_manager.set_logic(my_service_logic.instance);
+            service_manager.set_network(service_network.instance);
 
 
             var connect_info = new event_connect_server.connect_to_server_info()
@@ -29,13 +26,22 @@ namespace Assets.tb_client.script.game
             };
 
             event_connect_server event_connect = new event_connect_server();
-            event_connect.set(logic_ser, network_ser, connect_info);
+            event_connect.set(my_service_logic.instance, service_network.instance, connect_info);
 
-            var http_proxy = logic.my_http_client_proxy.instance();
+            GameObject pro = GameObject.Find("httpproxy");
+            if (pro != null)
+            {
+                http_client_proxy_event login_event = new http_client_proxy_event();
+                login_event.response += on_login_response;
 
-            http_client_proxy_event login_event = new http_client_proxy_event();
-            login_event.response += on_login_response;
-            http_proxy.do_login("test1", "asdf", 0, login_event);
+                my_http_client_proxy my_proxy = pro.GetComponent<my_http_client_proxy>();
+                StartCoroutine(my_proxy.do_login("test1", "asdf", 0, login_event));
+            }
+//             var http_proxy = logic.my_http_client_proxy.instance();
+// 
+//             http_client_proxy_event login_event = new http_client_proxy_event();
+//             login_event.response += on_login_response;
+//             http_proxy.do_login("test1", "asdf", 0, login_event);
         }
 
         protected void on_login_response(object sender, string str_response)

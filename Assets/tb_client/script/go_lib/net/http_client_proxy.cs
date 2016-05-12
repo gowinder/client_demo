@@ -43,21 +43,20 @@ namespace Assets.tb_client.script.go_lib.net
 
         protected IEnumerator send_request(string data, http_client_proxy_event proxy_event)
         {
-            UnityWebRequest www = new UnityWebRequest(web_host);
-            www.downloadHandler = new DownloadHandlerBuffer();
-            yield return www.Send();
+            UnityWebRequest request = UnityWebRequest.Put(web_host, data);
+            yield return request.Send();
 
-            if (www.isError)
+            if (request.isError)
             {
-                Debug.Log(www.error);
+                Debug.Log(request.error);
             }
             else
             {
                 // Show results as text
-                Debug.Log(www.downloadHandler.text);
+                Debug.Log(request.downloadHandler.text);
 
                 // Or retrieve results as binary data
-                byte[] results = www.downloadHandler.data;
+                byte[] results = request.downloadHandler.data;
                 string str_response = results.ToString();
                 proxy_event.response(this, str_response);
             }

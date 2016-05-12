@@ -38,6 +38,19 @@ namespace Assets.tb_client.script.go_lib.net
 
     public class service_network : service_base
     {
+        protected static service_network s_instance;
+
+        public static service_network instance
+        {
+            get
+            {
+                if (s_instance == null)
+                    s_instance = new service_network();
+
+                return s_instance;
+            }
+        }
+
         protected const int RECEIVE_BUFF_SIZE = 512*1024;
         protected const int SEND_BUFF_SIZE = 512*1024;
         protected byte[] _recive_buff;
@@ -147,7 +160,7 @@ namespace Assets.tb_client.script.go_lib.net
                 var ts = DateTime.Now - debug_t;
                 if (ts.Seconds > 1)
                 {
-                    Debug.Log("network service maintain");
+                 //   Debug.Log("network service maintain");
                     debug_t = DateTime.Now;
                 }
                 if (_socket == null)

@@ -14,8 +14,21 @@ using UnityEngine;
 
 namespace Assets.tb_client.script.game.logic
 {
-    internal class my_service_logic : service_logic
+    public class my_service_logic : service_logic
     {
+        protected static service_logic s_instance;
+
+        public static service_logic instance
+        {
+            get
+            {
+                if (s_instance == null)
+                    s_instance = new service_logic();
+
+                return s_instance;
+            }
+        }
+
         protected DateTime debug_t { get; set; }
         // Use this for initialization
         private void Start()

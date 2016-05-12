@@ -23,7 +23,7 @@ namespace go_lib
         protected bool _start_own_thread;
         protected Thread _thread;
 
-        private readonly string fun_name = "thread_process";
+        private readonly string fun_name = "go_tick";
 
         public bool is_running
         {
@@ -118,7 +118,7 @@ namespace go_lib
             }
             else
             {
-                InvokeRepeating(fun_name, 0.1f, 1.0f);
+                InvokeRepeating(fun_name, 0.1f, 0.5f);
             }
         }
 
@@ -172,8 +172,14 @@ namespace go_lib
                 var dt_end = DateTime.Now;
                 var ts = dt_end - dt_start;
 
-                if (ts.Milliseconds < INTERVAL && _start_own_thread)
-                    _pump.wait(INTERVAL - ts.Milliseconds);
+                int delta_time = INTERVAL - ts.Milliseconds;
+          //      Debug.Log("service delta_time " + delta_time);
+                if (delta_time > 0 && _start_own_thread)
+                {
+
+                    _pump.wait(delta_time);
+
+                }
             }
             catch (Exception e)
             {
