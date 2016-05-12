@@ -16,6 +16,8 @@ namespace Assets.tb_client.script.game.logic
         public const string user_name = "user_name";
         public const string user_pwd = "user_pwd";
         public const string platform_id = "platform_id";
+
         public const string ret = "ret";
+        public const string data = "data";
     }
 }

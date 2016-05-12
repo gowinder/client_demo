@@ -52,7 +52,7 @@ namespace Assets.tb_client.script.game.logic
                 var ts = DateTime.Now - debug_t;
                 if (ts.Seconds > 10)
                 {
-                    Debug.Log("my logic service maintain");
+                //    Debug.Log("my logic service maintain");
                     debug_t = DateTime.Now;
                 }
             }

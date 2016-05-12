@@ -35,7 +35,7 @@ namespace Assets.tb_client.script.game.logic
             return s_instance;
         }
 
-        public IEnumerator do_login(string user_name, string user_pwd, int platform_id, http_client_proxy_event proxy_event)
+        public void do_login(string user_name, string user_pwd, int platform_id, http_client_proxy_event proxy_event)
         {
             var json_root = new JObject();
             json_root[net_json_name.package_type] = (int) net_package_type.action;
@@ -48,26 +48,34 @@ namespace Assets.tb_client.script.game.logic
 
             var str_json = JsonConvert.SerializeObject(json_root);
 
-            UnityWebRequest request = UnityWebRequest.Put(web_host, str_json);
-            yield return request.Send();
-            if (request.isError)
-            {
-                Debug.Log(request.error);
-            }
-            else
-            {
-                string str_response = request.downloadHandler.text;
-                proxy_event.response(this, str_response);
-            }
-
-            //             var client = UnityCommunicationManager.CreateInstance().GetHttpClient();
-            //             var content_buffer = Encoding.UTF8.GetBytes(str_json);
-            //             client.Error += Client_Error;
-            //             client.BeginPost(web_host, content_buffer, response =>
-            //             {
-            //                 UnityEngine.Debug.Log("response is" + response.StringContent);
-            //             });
+            send_request(str_json, proxy_event);
+            
+//             UnityWebRequest request = UnityWebRequest.Put(web_host, str_json);
+//             yield return request.Send();
+// 
+//             proxy_event.is_error = request.isError;
+//             if (request.isError)
+//             {
+//                 Debug.Log(request.error);
+//             }
+//             else
+//             {
+//                 string str_response = request.downloadHandler.text;
+//                 proxy_event.on_response(this, proxy_event);
+//             }
         }
-        
+
+        public static my_http_client_proxy get_instance()
+        {
+            const string proxy_name = "my_http_client_proxy";
+            GameObject pro = GameObject.Find(proxy_name);
+            if (pro == null)
+            {
+                pro = new GameObject(proxy_name);
+                pro.AddComponent<my_http_client_proxy>();
+            }
+            my_http_client_proxy my_proxy = pro.GetComponent<my_http_client_proxy>();
+            return my_proxy;
+        }
     }
 }
