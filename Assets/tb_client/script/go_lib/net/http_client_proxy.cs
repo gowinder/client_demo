@@ -1,19 +1,21 @@
 ﻿// gowinder@hotmail.com
-// Assembly-CSharp
+// client_demo.CSharp
 // http_client_proxy.cs
-// 2016-05-11-10:53
+// 2016-05-13-11:56
+
+#region
 
 using System;
 using System.Collections;
-using System.Runtime.Remoting.Channels;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.Experimental.Networking;
+
+#endregion
 
 namespace Assets.tb_client.script.go_lib.net
 {
-
-    public delegate void on_response<Targs>(object sender, http_client_proxy_event evnt) where Targs : http_client_proxy_event_args;
+    public delegate void on_response<Targs>(object sender, http_client_proxy_event evnt)
+        where Targs : http_client_proxy_event_args;
 
     public class http_client_proxy_event_args : EventArgs
     {
@@ -29,15 +31,16 @@ namespace Assets.tb_client.script.go_lib.net
     }
 
 
-    public class http_client_proxy  : MonoBehaviour
+    public class http_client_proxy : MonoBehaviour
     {
         protected uint _index;
 
-        public string web_host { get; set; }
         public http_client_proxy()
         {
             _index = 0;
         }
+
+        public string web_host { get; set; }
 
         public uint new_index()
         {
@@ -51,7 +54,7 @@ namespace Assets.tb_client.script.go_lib.net
 
         protected IEnumerator send(string data, http_client_proxy_event proxy_event)
         {
-            UnityWebRequest request = UnityWebRequest.Put(web_host, data);
+            var request = UnityWebRequest.Put(web_host, data);
             yield return request.Send();
 
             proxy_event.is_error = request.isError;
@@ -65,8 +68,8 @@ namespace Assets.tb_client.script.go_lib.net
                 Debug.Log(request.downloadHandler.text);
                 proxy_event.response = request.downloadHandler.text;
                 // Or retrieve results as binary data
-                byte[] results = request.downloadHandler.data;
-                string str_response = results.ToString();
+                var results = request.downloadHandler.data;
+                var str_response = results.ToString();
                 proxy_event.on_response(this, proxy_event);
             }
         }

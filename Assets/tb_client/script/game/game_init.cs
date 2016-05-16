@@ -1,7 +1,7 @@
 ﻿// gowinder@hotmail.com
 // client_demo.CSharp
 // game_init.cs
-// 2016-05-12-19:35
+// 2016-05-13-11:56
 
 #region
 
@@ -41,7 +41,6 @@ namespace Assets.tb_client.script.game
 
         protected void on_login_response(object sender, http_client_proxy_event evnt)
         {
-            
             Debug.Log(evnt.response);
         }
     }

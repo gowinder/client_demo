@@ -1,17 +1,14 @@
 ﻿// gowinder@hotmail.com
 // client_demo.CSharp
 // my_http_client_proxy.cs
-// 2016-05-12-16:08
+// 2016-05-13-11:56
 
 #region
 
-using System.Collections;
-using System.Text;
 using Assets.tb_client.script.go_lib.net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.Networking;
 
 #endregion
 
@@ -49,7 +46,7 @@ namespace Assets.tb_client.script.game.logic
             var str_json = JsonConvert.SerializeObject(json_root);
 
             send_request(str_json, proxy_event);
-            
+
 //             UnityWebRequest request = UnityWebRequest.Put(web_host, str_json);
 //             yield return request.Send();
 // 
@@ -68,13 +65,13 @@ namespace Assets.tb_client.script.game.logic
         public static my_http_client_proxy get_instance()
         {
             const string proxy_name = "my_http_client_proxy";
-            GameObject pro = GameObject.Find(proxy_name);
+            var pro = GameObject.Find(proxy_name);
             if (pro == null)
             {
                 pro = new GameObject(proxy_name);
                 pro.AddComponent<my_http_client_proxy>();
             }
-            my_http_client_proxy my_proxy = pro.GetComponent<my_http_client_proxy>();
+            var my_proxy = pro.GetComponent<my_http_client_proxy>();
             return my_proxy;
         }
     }

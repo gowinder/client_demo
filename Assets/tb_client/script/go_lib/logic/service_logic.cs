@@ -1,7 +1,7 @@
 ﻿// gowinder@hotmail.com
-// Assembly-CSharp
+// client_demo.CSharp
 // service_logic.cs
-// 2016-05-10-17:45
+// 2016-05-13-11:56
 
 #region
 

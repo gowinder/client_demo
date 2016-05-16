@@ -1,7 +1,7 @@
 ﻿// gowinder@hotmail.com
-// Assembly-CSharp
+// client_demo.CSharp
 // service_base.cs
-// 2016-05-10-17:45
+// 2016-05-13-11:57
 
 #region
 
@@ -16,14 +16,13 @@ namespace go_lib
 {
     public class service_base : MonoBehaviour
     {
+        private readonly string fun_name = "go_tick";
         protected int _id;
 
 
         protected i_event_pump _pump;
         protected bool _start_own_thread;
         protected Thread _thread;
-
-        private readonly string fun_name = "go_tick";
 
         public bool is_running
         {
@@ -172,13 +171,11 @@ namespace go_lib
                 var dt_end = DateTime.Now;
                 var ts = dt_end - dt_start;
 
-                int delta_time = INTERVAL - ts.Milliseconds;
-          //      Debug.Log("service delta_time " + delta_time);
+                var delta_time = INTERVAL - ts.Milliseconds;
+                //      Debug.Log("service delta_time " + delta_time);
                 if (delta_time > 0 && _start_own_thread)
                 {
-
                     _pump.wait(delta_time);
-
                 }
             }
             catch (Exception e)

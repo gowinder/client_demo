@@ -1,12 +1,11 @@
 ﻿// gowinder@hotmail.com
-// Assembly-CSharp
+// client_demo.CSharp
 // event_connect_server.cs
-// 2016-05-10-17:45
+// 2016-05-13-11:56
 
 #region
 
 using System;
-using System.Collections;
 using System.Net.Sockets;
 using Assets.tb_client.script.go_lib.logic;
 using Assets.tb_client.script.go_lib.service.engine_event;
@@ -19,8 +18,6 @@ namespace Assets.tb_client.script.go_lib.net
 {
     internal class event_connect_server : event_base
     {
-        public const string type = "connect_server";
-
         public enum connect_socket_status
         {
             connected = 1,
@@ -28,24 +25,7 @@ namespace Assets.tb_client.script.go_lib.net
             disconnected = 3
         }
 
-        public class connect_to_server_info
-        {
-            public string host { get; set; }
-            public int port { get; set; }
-            public connect_socket_status status { get; set; }
-            public SocketError sock_error { get; set; }
-            public uint session_id { get; set; }
-            public event_base band_event { get; set; }
-
-            /// <summary>
-            /// auto reconnect when disconnect or connect failed
-            /// </summary>
-            public bool auto_reconnect { get; set; }
-            /// <summary>
-            /// silent when connect result
-            /// </summary>
-            public bool silent { get; set; }
-        }
+        public const string type = "connect_server";
 
         public void set(service_base from, service_base to, connect_to_server_info info)
         {
@@ -68,6 +48,26 @@ namespace Assets.tb_client.script.go_lib.net
             else if (to_service is service_logic)
             {
             }
+        }
+
+        public class connect_to_server_info
+        {
+            public string host { get; set; }
+            public int port { get; set; }
+            public connect_socket_status status { get; set; }
+            public SocketError sock_error { get; set; }
+            public uint session_id { get; set; }
+            public event_base band_event { get; set; }
+
+            /// <summary>
+            ///     auto reconnect when disconnect or connect failed
+            /// </summary>
+            public bool auto_reconnect { get; set; }
+
+            /// <summary>
+            ///     silent when connect result
+            /// </summary>
+            public bool silent { get; set; }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿// gowinder@hotmail.com
-// Assembly-CSharp
+// client_demo.CSharp
 // service_network.cs
-// 2016-05-10-17:45
+// 2016-05-13-11:56
 
 #region
 
@@ -38,7 +38,15 @@ namespace Assets.tb_client.script.go_lib.net
 
     public class service_network : service_base
     {
+        protected const int RECEIVE_BUFF_SIZE = 512*1024;
+        protected const int SEND_BUFF_SIZE = 512*1024;
         protected static service_network s_instance;
+        protected byte[] _recive_buff;
+        protected int _recive_offset;
+        protected byte[] _send_buff;
+        protected int _send_offset;
+
+        protected Socket _socket;
 
         public static service_network instance
         {
@@ -50,15 +58,6 @@ namespace Assets.tb_client.script.go_lib.net
                 return s_instance;
             }
         }
-
-        protected const int RECEIVE_BUFF_SIZE = 512*1024;
-        protected const int SEND_BUFF_SIZE = 512*1024;
-        protected byte[] _recive_buff;
-        protected int _recive_offset;
-        protected byte[] _send_buff;
-        protected int _send_offset;
-
-        protected Socket _socket;
 
         public network_const.EM_NETWORK_CONNECT_TYPE connection_type { get; set; }
         public string server_address { get; set; }
@@ -160,7 +159,7 @@ namespace Assets.tb_client.script.go_lib.net
                 var ts = DateTime.Now - debug_t;
                 if (ts.Seconds > 1)
                 {
-                 //   Debug.Log("network service maintain");
+                    //   Debug.Log("network service maintain");
                     debug_t = DateTime.Now;
                 }
                 if (_socket == null)

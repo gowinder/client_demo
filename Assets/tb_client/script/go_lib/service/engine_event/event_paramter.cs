@@ -1,7 +1,7 @@
 ﻿// gowinder@hotmail.com
-// Assembly-CSharp
+// client_demo.CSharp
 // event_paramter.cs
-// 2016-05-10-17:45
+// 2016-05-13-11:57
 
 namespace Assets.tb_client.script.go_lib.service.engine_event
 {

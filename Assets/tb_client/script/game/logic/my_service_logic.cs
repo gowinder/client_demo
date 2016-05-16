@@ -1,7 +1,7 @@
 ﻿// gowinder@hotmail.com
-// Assembly-CSharp
+// client_demo.CSharp
 // my_service_logic.cs
-// 2016-05-10-17:45
+// 2016-05-13-11:56
 
 #region
 
@@ -52,7 +52,7 @@ namespace Assets.tb_client.script.game.logic
                 var ts = DateTime.Now - debug_t;
                 if (ts.Seconds > 10)
                 {
-                //    Debug.Log("my logic service maintain");
+                    //    Debug.Log("my logic service maintain");
                     debug_t = DateTime.Now;
                 }
             }
