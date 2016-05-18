@@ -3,7 +3,7 @@
 // net_package_type.cs
 // 2016-05-13-11:56
 
-namespace Assets.tb_client.script.game.logic
+namespace Assets.tb_client.script.game.logic.net
 {
     public enum net_package_type
     {
@@ -20,5 +20,10 @@ namespace Assets.tb_client.script.game.logic
         login = 1,
         create_role,
         battle
+    }
+
+    public enum net_package_query_sub_type
+    {
+        role = 1,
     }
 }

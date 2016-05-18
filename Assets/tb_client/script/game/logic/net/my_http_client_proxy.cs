@@ -12,7 +12,7 @@ using UnityEngine;
 
 #endregion
 
-namespace Assets.tb_client.script.game.logic
+namespace Assets.tb_client.script.game.logic.net
 {
     public class my_http_client_proxy : http_client_proxy
     {
@@ -20,6 +20,7 @@ namespace Assets.tb_client.script.game.logic
 
         public my_http_client_proxy()
         {
+            parser = data_parser.instance;
             web_host = "http://127.0.0.1:9981/test_request/";
         }
 
@@ -31,6 +32,20 @@ namespace Assets.tb_client.script.game.logic
             s_instance = new my_http_client_proxy();
             return s_instance;
         }
+
+        public static my_http_client_proxy get_instance()
+        {
+            const string proxy_name = "my_http_client_proxy";
+            var pro = GameObject.Find(proxy_name);
+            if (pro == null)
+            {
+                pro = new GameObject(proxy_name);
+                pro.AddComponent<my_http_client_proxy>();
+            }
+            var my_proxy = pro.GetComponent<my_http_client_proxy>();
+            return my_proxy;
+        }
+
 
         public void do_login(string user_name, string user_pwd, int platform_id, http_client_proxy_event proxy_event)
         {
@@ -62,17 +77,17 @@ namespace Assets.tb_client.script.game.logic
 //             }
         }
 
-        public static my_http_client_proxy get_instance()
+       
+        public void query_role(http_client_proxy_event query_event)
         {
-            const string proxy_name = "my_http_client_proxy";
-            var pro = GameObject.Find(proxy_name);
-            if (pro == null)
-            {
-                pro = new GameObject(proxy_name);
-                pro.AddComponent<my_http_client_proxy>();
-            }
-            var my_proxy = pro.GetComponent<my_http_client_proxy>();
-            return my_proxy;
+            var json_root = new JObject();
+            json_root[net_json_name.package_type] = (int)net_package_type.query;
+            json_root[net_json_name.package_sub_type] = (int)net_package_query_sub_type.role;
+            json_root[net_json_name.index] = new_index();
+
+            var str_json = JsonConvert.SerializeObject(json_root);
+
+            send_request(str_json, query_event);
         }
     }
 }

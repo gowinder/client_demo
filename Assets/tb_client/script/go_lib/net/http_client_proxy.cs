@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections;
+using Assets.tb_client.script.go_lib.logic;
 using UnityEngine;
 using UnityEngine.Experimental.Networking;
 
@@ -34,6 +35,7 @@ namespace Assets.tb_client.script.go_lib.net
     public class http_client_proxy : MonoBehaviour
     {
         protected uint _index;
+        public i_data_parser parser { get; set; }
 
         public http_client_proxy()
         {
@@ -70,6 +72,10 @@ namespace Assets.tb_client.script.go_lib.net
                 // Or retrieve results as binary data
                 var results = request.downloadHandler.data;
                 var str_response = results.ToString();
+
+                if(parser != null)
+                    parser.parser_data(str_response);
+
                 proxy_event.on_response(this, proxy_event);
             }
         }
